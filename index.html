@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deadlock Toolkit</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <h1>Deadlock Prevention and Recovery Toolkit</h1>
+    <div class="container">
+        <div class="input-panel">
+            <h2>System Configuration</h2>
+            <label>Processes:</label>
+            <input type="number" id="processes" value="2" min="0">
+
+            <label>Resources:</label>
+            <input type="number" id="resources" value="2" min="0">
+            <button onclick="generateTables()">Generate Tables</button>
+
+            <h3>Max Matrix</h3>
+            <div class="matrix-container">
+                <div id="maxMatrix"></div>
+            </div>
+
+            <h3>Allocation Matrix</h3>
+            <div class="matrix-container">
+                <div id="allocationMatrix"></div>
+            </div>
+
+            <h3>Request Matrix</h3>
+            <div class="matrix-container">
+                <div id="requestMatrix"></div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
