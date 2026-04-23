@@ -33,7 +33,22 @@
                 <div id="requestMatrix"></div>
             </div>
 
+            <h3>Available Resources</h3>
+            <div id="availableInput"></div>
+                <button onclick="calculateNeed()">Calculate Need</button>
+                <button onclick="detectDeadlock()">Detect Deadlock</button>
+                <button onclick="clearAll()">Clear All</button>
+                <button onclick="drawGraph()">Generate Graph</button>
+            </div>
+            
+            <div class="graph-panel">
+            <h2>Resource Allocation Graph</h2>
+            <canvas id="graphCanvas"></canvas>
         </div>
+    </div>
+    <div class="output">
+        <h2>Output</h2>
+        <pre id="outputText">System Ready</pre>
     </div>
 </body>
 </html>
