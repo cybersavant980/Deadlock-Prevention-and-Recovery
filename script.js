@@ -60,3 +60,28 @@ function displayMatrix(matrix,title){
     matrix.forEach(r=>{  html+=r.join("   ")+"\n";  });
     document.getElementById("outputText").textContent=html;
 }
+
+function runBanker(max,allocation,need){
+    let available=getAvailable();
+    let finish=new Array(max.length).fill(false);
+    let seq=[];
+    let changed=true;
+    while(changed){
+        changed=false;
+        for(let i=0;i<max.length;i++){
+            if(!finish[i] && canRun(i,need,available)){
+                for(let j=0;j<available.length;j++) available[j]+=allocation[i][j];
+                finish[i]=true;
+                seq.push("P"+i);
+                changed=true;
+            }
+        }
+    }
+    if (finish.every(v=>v)) document.getElementById("outputText").textContent+=`\nSAFE SEQUENCE:\n${seq.join(" → ")}`;
+    else document.getElementById("outputText").textContent+=`\nSystem NOT SAFE`;
+}
+
+function canRun(i,need,available){
+    for(let j=0;j<available.length;j++) if(need[i][j]>available[j]) return false;
+    return true;
+}
