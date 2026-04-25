@@ -85,3 +85,36 @@ function canRun(i,need,available){
     for(let j=0;j<available.length;j++) if(need[i][j]>available[j]) return false;
     return true;
 }
+
+function drawGraph(){
+    let allocation=getMatrixValues("allocationMatrix");
+    let canvas=document.getElementById("graphCanvas");
+    let ctx=canvas.getContext("2d");
+    canvas.width=500;
+    canvas.height=400;
+    ctx.clearRect(0,0,500,400);
+    let pX=120;
+    let rX=380;
+    let processes=allocation.length;
+    let resources=allocation[0].length;
+    for(let i=0;i<processes;i++){
+        ctx.beginPath();
+        ctx.arc(pX,60+i*70,20,0,2*Math.PI);
+        ctx.stroke();
+        ctx.fillText("P"+i,pX-10,65+i*70); 
+    }
+    for(let j=0;j<resources;j++){
+        ctx.strokeRect(rX-20,60+j*70-20,40,40);
+        ctx.fillText("R"+j,rX-10,65+j*70);
+    }
+    for(let i=0;i<processes;i++){
+        for(let j=0;j<resources;j++){
+            if(allocation[i][j]>0){
+                ctx.beginPath();
+                ctx.moveTo(pX+20,60+i*70);
+                ctx.lineTo(rX-20,60+j*70);
+                ctx.stroke();
+            }
+        }
+    }
+}
