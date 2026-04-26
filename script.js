@@ -172,3 +172,13 @@ function dfs(node,graph,visited,stack,path){
     path.pop();
     return false;
 }
+
+function suggestRecovery(cycle){
+    document.getElementById("outputText").textContent+=`\nRecovery Suggestion:\nTerminate ${cycle[0]}`;
+}
+
+function highlight(){
+    let ctx=document.getElementById("graphCanvas").getContext("2d");
+    ctx.fillStyle="red";
+    ctx.fillText("Deadlock!",200,20);
+}
