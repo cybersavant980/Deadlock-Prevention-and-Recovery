@@ -182,3 +182,16 @@ function highlight(){
     ctx.fillStyle="red";
     ctx.fillText("Deadlock!",200,20);
 }
+
+function clearAll(){
+    // reset matrix inputs
+    document.querySelectorAll("table input").forEach(input=>input.value=0);
+    // reset available resources
+    document.querySelectorAll("#availableInput input").forEach(input=>input.value=0);
+    // clear output
+    document.getElementById("outputText").textContent="System Reset";
+    // clear graph
+    let canvas=document.getElementById("graphCanvas");
+    let ctx=canvas.getContext("2d");
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+}
