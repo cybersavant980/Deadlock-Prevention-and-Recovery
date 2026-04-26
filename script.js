@@ -118,3 +118,57 @@ function drawGraph(){
         }
     }
 }
+
+function detectDeadlock(){
+    let allocation=getMatrixValues("allocationMatrix");
+    let request=getMatrixValues("requestMatrix");
+    let graph={};
+    for (let i=0;i<allocation.length;i++)  graph["P"+i]=[];
+    for(let i=0;i<allocation.length;i++){
+        for(let j=0;j<allocation[i].length;j++){
+            if(request[i][j]>0){
+                for(let k=0;k<allocation.length;k++){
+                    if(allocation[k][j]>0){
+                        graph["P"+i].push("P"+k);
+                    }
+                }
+            }
+        }
+    }
+    let cycle=findCycle(graph);
+    if(cycle){
+        document.getElementById("outputText").textContent+=`\nDEADLOCK:\n${cycle.join(" → ")}`;
+        suggestRecovery(cycle);
+        highlight();
+    }else{
+        document.getElementById("outputText").textContent+=`\nNo Deadlock`;
+    }
+}
+
+function findCycle(graph){
+    let visited={};
+    let stack={};
+    for(let node in graph){
+        let path=[];
+        if(dfs(node,graph,visited,stack,path)) return path;
+    }
+    return null;
+}
+
+function dfs(node,graph,visited,stack,path){
+    if(!visited[node]){
+        visited[node]=true;
+        stack[node]=true;
+        path.push(node);
+        for(let n of graph[node]){
+            if(!visited[n] && dfs(n,graph,visited,stack,path)) return true;
+            else if(stack[n]){
+                path.push(n);
+                return true;
+            }
+        }
+    }
+    stack[node]=false;
+    path.pop();
+    return false;
+}
