@@ -184,13 +184,9 @@ function highlight(){
 }
 
 function clearAll(){
-    // reset matrix inputs
     document.querySelectorAll("table input").forEach(input=>input.value=0);
-    // reset available resources
     document.querySelectorAll("#availableInput input").forEach(input=>input.value=0);
-    // clear output
     document.getElementById("outputText").textContent="System Reset";
-    // clear graph
     let canvas=document.getElementById("graphCanvas");
     let ctx=canvas.getContext("2d");
     ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -198,74 +194,35 @@ function clearAll(){
 
 function generateRandomCase() {
 
-    let p = parseInt(
-        document.getElementById("processes").value
-    );
-
-    let r = parseInt(
-        document.getElementById("resources").value
-    );
-
-    // Create fresh tables
+    let p = parseInt(document.getElementById("processes").value);
+    let r = parseInt(document.getElementById("resources").value);
     generateTables();
-
     // MAX MATRIX
-    let maxRows =
-        document.querySelectorAll("#maxMatrix tr");
-
+    let maxRows = document.querySelectorAll("#maxMatrix tr");
     // ALLOCATION MATRIX
-    let allocRows =
-        document.querySelectorAll("#allocationMatrix tr");
-
+    let allocRows = document.querySelectorAll("#allocationMatrix tr");
     // REQUEST MATRIX
-    let reqRows =
-        document.querySelectorAll("#requestMatrix tr");
-
+    let reqRows = document.querySelectorAll("#requestMatrix tr");
     // Fill random values
     for (let i = 0; i < p; i++) {
-
-        let maxInputs =
-            maxRows[i].querySelectorAll("input");
-
-        let allocInputs =
-            allocRows[i].querySelectorAll("input");
-
-        let reqInputs =
-            reqRows[i].querySelectorAll("input");
-
+        let maxInputs = maxRows[i].querySelectorAll("input");
+        let allocInputs = allocRows[i].querySelectorAll("input");
+        let reqInputs = reqRows[i].querySelectorAll("input");
         for (let j = 0; j < r; j++) {
-
-            let maxVal =
-                Math.floor(Math.random() * 5) + 1;
-
-            let allocVal =
-                Math.floor(
-                    Math.random() * (maxVal + 1)
-                );
-
-            let reqVal =
-                Math.floor(Math.random() * 2);
-
+            let maxVal = Math.floor(Math.random() * 5) + 1;
+            let allocVal = Math.floor( Math.random() * (maxVal + 1) );
+            let reqVal = Math.floor(Math.random() * 2);
             maxInputs[j].value = maxVal;
-
             allocInputs[j].value = allocVal;
-
             reqInputs[j].value = reqVal;
         }
     }
-
     // Fill available resources
     let availInputs =
-        document.querySelectorAll(
-            "#availableInput input"
-        );
-
+        document.querySelectorAll("#availableInput input");
     for (let j = 0; j < r; j++) {
-
-        availInputs[j].value =
-            Math.floor(Math.random() * 4);
+        availInputs[j].value = Math.floor(Math.random() * 4);
     }
-
     // Output
     document.getElementById("outputText")
         .textContent =
